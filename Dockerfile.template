@@ -1,0 +1,59 @@
+FROM ubuntu:14.04.5
+
+RUN apt-get update && apt-get install -y \\
+    curl \\
+    libcups2 \\
+    libdbus-glib-1-2 \\
+    libfontconfig1 \\
+    libglu1-mesa \\
+    libice6 \\
+    libsm6 \\
+    libxinerama1 \\
+    libxrender1 \\
+    libxt6 \\
+    unzip \\
+    wget \\
+    zip \\
+ && rm -rf /var/lib/apt/lists/*
+
+EXPOSE 5701 8000 8080 8443
+
+RUN useradd -ms /bin/bash alfresco && \\
+    usermod -aG sudo alfresco && \\
+    echo "alfresco:alfresco" | chpasswd && \\
+    mkdir -p /opt/alfresco && \\
+    chown alfresco:alfresco /opt/alfresco
+USER alfresco
+WORKDIR /home/alfresco
+
+ENV ALF_VERSION ${ALF_VERSION}
+ENV ALF_BIN ${ALF_BIN}
+ENV ALF_URL ${ALF_URL}
+
+#RUN /data/installers/${ALF_BIN} --mode unattended --prefix /opt/alfresco --alfresco_admin_password admin
+
+RUN wget -P /tmp ${ALF_URL} && \\
+    chmod 755 /tmp/${ALF_BIN} && \\
+    /tmp/${ALF_BIN} --mode unattended --prefix /opt/alfresco --alfresco_admin_password admin && \\
+    rm /tmp/${ALF_BIN}
+
+VOLUME [ \\
+         \"/opt/alfresco/alf_data/contentstore\", \\
+         \"/opt/alfresco/alf_data/contentstore.deleted\", \\
+         \"/opt/alfresco/alf_data/postgresql\", \\
+         \"/opt/alfresco/alf_data/solr4/content\", \\
+         \"/opt/alfresco/alf_data/solr4/index\", \\
+         \"/opt/alfresco/alf_data/solr4/model\", \\
+         \"/opt/alfresco/amps\", \\
+         \"/opt/alfresco/amps_share\", \\
+         \"/opt/alfresco/modules/platform\", \\
+         \"/opt/alfresco/modules/share\", \\
+       ]
+
+# Enable cross origin access to Alfresco
+RUN wget -P /opt/alfresco/modules/platform https://artifacts.alfresco.com/nexus/service/local/repositories/releases/content/org/alfresco/enablecors/1.0/enablecors-1.0.jar
+
+# Add the API Explorer
+RUN wget -P /opt/alfresco/tomcat/webapps https://artifacts.alfresco.com/nexus/service/local/repositories/releases/content/org/alfresco/api-explorer/1.4/api-explorer-1.4.war -O api-explorer.war
+
+# \$(for i in \$(seq 1 10); do echo x\${i}x; done)
