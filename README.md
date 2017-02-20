@@ -20,7 +20,7 @@ instead of the raw `run.sh` command.
 ```
 > ./run.sh bash
 docker> # Inside the container we need to start Alfresco
-docker> /host/scripts/starti.sh
+docker> /host/scripts/start.sh
 ```
 
 ## TODO

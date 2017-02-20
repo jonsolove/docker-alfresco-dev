@@ -58,4 +58,4 @@ RUN wget -P /opt/alfresco/tomcat/webapps https://artifacts.alfresco.com/nexus/se
 
 # \$(for i in \$(seq 1 10); do echo x\${i}x; done)
 
-CMD /host/scripts/start.sh
+CMD /host/scripts/init.sh
