@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pushd . 
-mkdir -p mount/installers
-cd mount/installers
+mkdir -p host/installers
+cd host/installers
 wget $ALF_URL
 chmod 755 $ALF_BIN
 popd

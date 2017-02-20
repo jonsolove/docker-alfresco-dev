@@ -57,3 +57,5 @@ RUN wget -P /opt/alfresco/modules/platform https://artifacts.alfresco.com/nexus/
 RUN wget -P /opt/alfresco/tomcat/webapps https://artifacts.alfresco.com/nexus/service/local/repositories/releases/content/org/alfresco/api-explorer/1.4/api-explorer-1.4.war -O api-explorer.war
 
 # \$(for i in \$(seq 1 10); do echo x\${i}x; done)
+
+CMD /host/scripts/start.sh

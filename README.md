@@ -12,8 +12,15 @@ Say you want to work with Alfresco 5.2f, you would run the following:
 > ./build.sh
 > # Spin up a container from the image
 > ./run.sh
+```
+
+If you'd prefer to work in the image interactively, use the following
+instead of the raw `run.sh` command.
+
+```
+> ./run.sh bash
 docker> # Inside the container we need to start Alfresco
-docker> /host/scripts/start.sh
+docker> /host/scripts/starti.sh
 ```
 
 ## TODO
