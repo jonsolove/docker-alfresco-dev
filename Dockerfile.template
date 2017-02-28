@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \\
     zip \\
  && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 5701 8000 8080 8443
+EXPOSE 5432 5701 8000 8080 8443
 
 RUN useradd -ms /bin/bash alfresco && \\
     usermod -aG sudo alfresco && \\
