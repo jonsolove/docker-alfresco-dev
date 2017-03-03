@@ -41,3 +41,5 @@ docker> /host/scripts/start.sh
 - Work on a way to cache the Alfresco installs outside of docker for faster image
   building. The Docker team is discussing adding a `--mount` option to `docker build`
   that should make this work.
+
+- Deploy the Activiti Connector and LDAP amps for improved integration with Activiti.
